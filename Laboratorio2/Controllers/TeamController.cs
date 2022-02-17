@@ -18,9 +18,10 @@ namespace Laboratorio2.Controllers
         }
 
         // GET: TeamController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            var modelo = Data.Instance.TeamList.Find(persona => persona.Name == id);
+            return View(modelo);
         }
 
         // GET: TeamController/Create
@@ -36,20 +37,14 @@ namespace Laboratorio2.Controllers
         {
             try
             {
-                var response = TeamModel.Save(new TeamModel
+                var informacion = TeamModel.Guardar(new TeamModel
                 {
-                    Name = "G2 ESPORTS",
-                    Coach = "Dylan Falco",
-                    Ligue = "LEC",
-                    CreationDate = "15 October 2015",
+                    Name = collection["Name"],
+                    Coach = collection["Coach"],
+                    Ligue = collection["Ligue"],
+                    CreationDate = collection["CreationDate"]
                 });
-
-                if (response)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                ViewBag["Error"] = "Error while creating new element";
-                return View();
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
@@ -58,18 +53,26 @@ namespace Laboratorio2.Controllers
         }
 
         // GET: TeamController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            var modelo = Data.Instance.TeamList.Find(Equipo => Equipo.Name  == id);
+            return View(modelo);
         }
 
         // POST: TeamController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(string id, IFormCollection collection)
         {
             try
             {
+                var informacion = TeamModel.Editar(id, new TeamModel
+                {
+                    Name = collection["Name"],
+                    Coach = collection["Coach"],
+                    Ligue = collection["Ligue"],
+                    CreationDate  = collection["CreationDate"]
+                });
                 return RedirectToAction(nameof(Index));
             }
             catch

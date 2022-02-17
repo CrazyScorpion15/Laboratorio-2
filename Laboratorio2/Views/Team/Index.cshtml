@@ -43,11 +43,14 @@
                 @Html.DisplayFor(modelItem => item.CreationDate)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { id=item.Name  }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Name }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Name })
             </td>
         </tr>
 }
     </tbody>
 </table>
+<p>
+    <a asp-controller="Player" asp-action="Index">Lista de jugadores</a>
+</p>
