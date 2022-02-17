@@ -39,10 +39,11 @@ namespace Laboratorio2.Models
             };
             return true;
         }
-        public static void Erase(string id)
+        public static bool Delete(string id)
         {
             var position = Data.Instance.PlayerList.FindIndex(player => player.Name == id);
             Data.Instance.PlayerList.RemoveAt(position);
+            return true;
         }
     }
 }
