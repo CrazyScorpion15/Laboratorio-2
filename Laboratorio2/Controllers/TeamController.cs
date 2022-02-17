@@ -11,6 +11,8 @@ namespace Laboratorio2.Controllers
 {
     public class TeamController : Controller
     {
+        private object connString;
+
         // GET: TeamController
         public ActionResult Index()
         {
@@ -98,5 +100,25 @@ namespace Laboratorio2.Controllers
                 return View();
             }
         }
-    }
+
+        //upload cvs file 
+
+        [HttpPost]
+        public ActionResult UploadFile(HttpPostedFileBase FileUpload)
+        {
+            if (FileUpload.ContentLength > 0)
+            {
+                // there's a file that needs our attention
+                var success = db.UploadProductFile(FileUpload);
+
+                // was everything ok?
+                if (success)
+                    return View("UploadSuccess");
+                else
+                    return View("UploadFail");
+            }
+
+            return RedirectToAction("Index", new { error = "Please upload a file..." });
+        }      
+        }
 }
