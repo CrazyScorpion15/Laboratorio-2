@@ -82,8 +82,9 @@ namespace Laboratorio2.Controllers
         }
 
         // GET: TeamController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
+            var model = Data.Instance.TeamList.Find(Team => Team.Name == id);
             return View();
         }
 

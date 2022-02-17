@@ -38,12 +38,12 @@ namespace Laboratorio2.Controllers
             {
                 var response = PlayerModel.Save(new PlayerModel
                 {
-                    Team = "G2 ESPORTS",
-                    Name = "Rasmus",
-                    LName = "Winther",
-                    Role = "MID LANER",
-                    KDA = 3.9,
-                    CreepScore = 8.7,
+                    Team = collection["Team"],
+                    Name = collection["Name"],
+                    LName = collection["Last Name"],
+                    Role = collection["Role"],
+                    KDA = double.Parse(collection["KDA"]),
+                    CreepScore = double.Parse(collection["Creepscore"]),
                 });
 
                 if (response)
@@ -60,18 +60,28 @@ namespace Laboratorio2.Controllers
         }
 
         // GET: PlayerController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            var modelo = Data.Instance.PlayerList.Find(Player => Player.Name == id);
+            return View(modelo);
         }
 
         // POST: PlayerController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(string id, IFormCollection collection)
         {
             try
             {
+                var information = PlayerModel.Edit(id, new PlayerModel
+                {
+                    Team = collection["Team"],
+                    Name = collection["Name"],
+                    LName = collection["Last Name"],
+                    Role = collection["Role"],
+                    KDA = double.Parse(collection["KDA"]),
+                    CreepScore = double.Parse(collection["Creepscore"]),
+                });
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -81,18 +91,20 @@ namespace Laboratorio2.Controllers
         }
 
         // GET: PlayerController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
+            var model = Data.Instance.PlayerList.Find(Player => Player.Name == id);
             return View();
         }
 
         // POST: PlayerController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(string id, IFormCollection collection)
         {
             try
             {
+                var model = PlayerModel.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
