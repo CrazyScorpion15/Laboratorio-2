@@ -26,10 +26,24 @@ namespace Laboratorio2.Helpers
         {
             new TeamModel
             {
-                Name = "Saber",
-                Coach = "Buenas",
-                Legue = "Como",
-                CreationDate = "2/3/2002"
+                Name = "G2 ESPORTS",
+                Coach = "Dylan Falco",
+                Ligue = "LEC",
+                CreationDate = "15 October 2015",
+            }
+        };
+
+        public List<PlayerModel> PlayerList = new List<PlayerModel>
+        {
+            new PlayerModel
+            {
+                Team = "G2 ESPORTS",
+                Name = "Rasmus",
+                LName = "Winther",
+                Role = "MID LANER",
+                KDA  = 3.9,
+                CreepScore = 8.7,
+
             }
         };
     }
