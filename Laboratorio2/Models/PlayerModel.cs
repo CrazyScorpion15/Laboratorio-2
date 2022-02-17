@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Laboratorio2.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,10 +20,29 @@ namespace Laboratorio2.Models
 
         public double CreepScore { get; set; }
 
-        internal static bool Save(PlayerModel teamModel)
+        internal static bool Save(PlayerModel playerModel)
         {
-            throw new NotImplementedException();
+            Data.Instance.PlayerList.Add(playerModel);
+            return true;
         }
-
+        public static bool Edit(string id, PlayerModel model)
+        {
+            var position = Data.Instance.PlayerList.FindIndex(group => group.Name == id);
+            Data.Instance.PlayerList[position] = new PlayerModel
+            {
+                Team = model.Team,
+                Name = id,
+                LName = model.LName,
+                Role = model.Role,
+                KDA = model.KDA,
+                CreepScore = model.CreepScore
+            };
+            return true;
+        }
+        public static void Erase(string id)
+        {
+            var position = Data.Instance.PlayerList.FindIndex(player => player.Name == id);
+            Data.Instance.PlayerList.RemoveAt(position);
+        }
     }
 }
