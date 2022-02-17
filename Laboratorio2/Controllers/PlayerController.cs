@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Laboratorio2.Helpers;
+using Laboratorio2.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,7 +14,7 @@ namespace Laboratorio2.Controllers
         // GET: PlayerController
         public ActionResult Index()
         {
-            return View();
+            return View(Data.Instance.PlayerList);
         }
 
         // GET: PlayerController/Details/5
@@ -34,7 +36,22 @@ namespace Laboratorio2.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var response = PlayerModel.Save(new PlayerModel
+                {
+                    Team = "G2 ESPORTS",
+                    Name = "Rasmus",
+                    LName = "Winther",
+                    Role = "MID LANER",
+                    KDA = 3.9,
+                    CreepScore = 8.7,
+                });
+
+                if (response)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                ViewBag["Error"] = "Error while creating new element";
+                return View();
             }
             catch
             {

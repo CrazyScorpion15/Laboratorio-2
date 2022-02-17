@@ -1,4 +1,5 @@
 ﻿using Laboratorio2.Helpers;
+using Laboratorio2.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -35,7 +36,20 @@ namespace Laboratorio2.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var response = TeamModel.Save(new TeamModel
+                {
+                    Name = "G2 ESPORTS",
+                    Coach = "Dylan Falco",
+                    Ligue = "LEC",
+                    CreationDate = "15 October 2015",
+                });
+
+                if (response)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                ViewBag["Error"] = "Error while creating new element";
+                return View();
             }
             catch
             {

@@ -9,7 +9,13 @@ namespace Laboratorio2.Models
     {
         public string Name { get; set; }
         public string Coach { get; set; }
-        public string Legue { get; set; }
+        public string Ligue { get; set; }
         public string CreationDate { get; set; }
+
+
+        internal static bool Save(TeamModel teamModel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
