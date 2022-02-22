@@ -1,12 +1,15 @@
-﻿using Laboratorio2.Helpers;
+﻿using CsvHelper;
+using Laboratorio2.Helpers;
 using Laboratorio2.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace Laboratorio2.Controllers
 {
     public class PlayerController : Controller
@@ -15,6 +18,59 @@ namespace Laboratorio2.Controllers
         public ActionResult Index()
         {
             return View(Data.Instance.PlayerList);
+        }
+
+        [HttpGet]
+        public IActionResult Index(List<PlayerModel> modelo = null)
+        {
+            modelo = modelo == null ? new List<PlayerModel>() : modelo;
+            return View(modelo);
+        }
+
+        [HttpPost]
+        public IActionResult Index(IFormFile file, [FromServices] IHostingEnvironment hostingEnvironment)
+        {
+            #region Upload CSV
+            string fileName = $"{hostingEnvironment.WebRootPath}\\files\\{file.FileName}";
+            using (FileStream fileStream = System.IO.File.Create(fileName))
+            {
+                file.CopyTo(fileStream);
+                fileStream.Flush();
+            }
+            #endregion
+            var modelo = this.GetPlayerList(file.FileName);
+            return Index(modelo);
+        }
+
+        private List<PlayerModel> GetPlayerList(string fileName)
+        {
+            List<PlayerModel> modelo = new List<PlayerModel>();
+
+            #region Read CSV
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files"}" + "\\" + fileName;
+            using (var reader = new StreamReader(path))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read())
+                {
+                    var player = csv.GetRecord<PlayerModel>();
+                    modelo.Add(player);
+                }
+            }
+            #endregion
+
+            #region Create CSV
+            path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\FilesTo"}";
+            using (var write = new StreamWriter(path + "\\NewFile.csv"))
+            using (var csv = new CsvWriter(write, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(modelo);
+            }
+            #endregion
+
+            return modelo;
         }
 
         // GET: PlayerController/Details/5

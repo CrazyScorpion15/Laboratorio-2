@@ -24,13 +24,7 @@ namespace Laboratorio2.Helpers
 
         public List<TeamModel> TeamList = new List<TeamModel>
         {
-            new TeamModel
-            {
-                Name = "G2 ESPORTS",
-                Coach = "Dylan Falco",
-                Ligue = "LEC",
-                CreationDate = "15 October 2015",
-            }
+
         };
 
         public List<PlayerModel> PlayerList = new List<PlayerModel>

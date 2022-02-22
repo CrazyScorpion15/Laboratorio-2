@@ -1,4 +1,5 @@
-﻿using Laboratorio2.Helpers;
+﻿using CsvHelper.Configuration.Attributes;
+using Laboratorio2.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +9,14 @@ namespace Laboratorio2.Models
 {
     public class TeamModel
     {
-        public string Name { get; set; }
-        public string Coach { get; set; }
-        public string Ligue { get; set; }
-        public string CreationDate { get; set; }
+        [Index(0)]
+        public string Name { get; set; } = "";
+        [Index(1)]
+        public string Coach { get; set; } = "";
+        [Index(2)]
+        public string Ligue { get; set; } = "";
+        [Index(3)]
+        public string CreationDate { get; set; } = "";
 
         public static bool Guardar(TeamModel model)
         {

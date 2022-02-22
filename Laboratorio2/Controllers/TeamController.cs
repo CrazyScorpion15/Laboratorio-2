@@ -1,11 +1,16 @@
-﻿using Laboratorio2.Helpers;
+﻿using CsvHelper;
+using Laboratorio2.Helpers;
 using Laboratorio2.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace Laboratorio2.Controllers
 {
@@ -17,11 +22,63 @@ namespace Laboratorio2.Controllers
             return View(Data.Instance.TeamList);
         }
 
+        [HttpGet]
+        public IActionResult Index(List<TeamModel> teams = null)
+        {
+            teams = teams == null ? new List<TeamModel>() : teams;
+            return View(teams);
+        }
+
+        [HttpPost]
+        public IActionResult Index(IFormFile file, [FromServices] IHostingEnvironment hostingEnvironment)
+        {
+            #region Upload CSV
+            string fileName = $"{hostingEnvironment.WebRootPath}\\files\\{file.FileName}";
+            using (FileStream fileStream = System.IO.File.Create(fileName))
+            {
+                file.CopyTo(fileStream);
+                fileStream.Flush();
+            }
+            #endregion
+
+            var teams = this.GetTeamList(file.FileName);
+
+            return Index(teams);
+        }
+        private List<TeamModel> GetTeamList(string fileName)
+        {
+            List<TeamModel> teams = new List<TeamModel>();
+            #region Read CSV
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files"}" + "\\" + fileName;
+            using (var reader = new StreamReader(path))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read())
+                {
+                    var team = csv.GetRecord<TeamModel>();
+                    teams.Add(team);
+                }
+            }
+            #endregion
+
+            #region Create CSV
+            path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\FilesTo"}";
+            using (var write = new StreamWriter(path + "\\NewFile.csv"))
+            using (var csv = new CsvWriter(write, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(teams);
+            }
+            #endregion
+            return teams;
+        }
+
         // GET: TeamController/Details/5
         public ActionResult Details(string id)
         {
-            var modelo = Data.Instance.TeamList.Find(persona => persona.Name == id);
-            return View(modelo);
+            var teams = Data.Instance.TeamList.Find(persona => persona.Name == id);
+            return View(teams);
         }
 
         // GET: TeamController/Create
@@ -44,6 +101,7 @@ namespace Laboratorio2.Controllers
                     Ligue = collection["Ligue"],
                     CreationDate = collection["CreationDate"]
                 });
+                //var teams = Lab2.GenericList<TeamModel>.Add(informacion);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -55,8 +113,8 @@ namespace Laboratorio2.Controllers
         // GET: TeamController/Edit/5
         public ActionResult Edit(string id)
         {
-            var modelo = Data.Instance.TeamList.Find(Equipo => Equipo.Name  == id);
-            return View(modelo);
+            var teams = Data.Instance.TeamList.Find(Equipo => Equipo.Name  == id);
+            return View(teams);
         }
 
         // POST: TeamController/Edit/5
@@ -84,7 +142,7 @@ namespace Laboratorio2.Controllers
         // GET: TeamController/Delete/5
         public ActionResult Delete(string id)
         {
-            var model = Data.Instance.TeamList.Find(Team => Team.Name == id);
+            var teams = Data.Instance.TeamList.Find(Team => Team.Name == id);
             return View();
         }
 
