@@ -1,4 +1,5 @@
-﻿using Laboratorio2.Helpers;
+﻿using CsvHelper.Configuration.Attributes;
+using Laboratorio2.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +9,17 @@ namespace Laboratorio2.Models
 {
     public class PlayerModel
     {
+        [Index(0)]
         public string Team { get; set; }
-
+        [Index(1)]
         public string Name { get; set; }
-
+        [Index(2)]
         public string LName { get; set; }
-
+        [Index(3)]
         public string Role { get; set; }
-
+        [Index(4)]
         public double KDA { get; set; }
-
+        [Index(5)]
         public double CreepScore { get; set; }
 
         internal static bool Save(PlayerModel playerModel)
