@@ -19,7 +19,17 @@ namespace Lab2
             }
             Head = Nuevo;
         }
-        
+        public bool Search<List>(T id)
+        {
+            for(Node<T> indice = Head; indice != null; indice = indice.Next)
+            {
+                if(indice.value == id)
+                {
+
+                }
+            }
+            return true;
+        }
         public IEnumerator<T> GetEnumerator()
         {
             Node<T> node = Head;
