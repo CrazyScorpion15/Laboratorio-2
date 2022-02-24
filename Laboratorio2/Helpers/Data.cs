@@ -1,4 +1,5 @@
-﻿using Laboratorio2.Models;
+﻿using Lab2;
+using Laboratorio2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,9 @@ namespace Laboratorio2.Helpers
     public class Data
     {
         private static Data _instance = null;
+
+        public GenericList<PlayerModel> ListaPlayers = new GenericList<PlayerModel>();
+        public GenericList<TeamModel> ListTeam = new GenericList<TeamModel>();
 
         public static Data Instance
         {
