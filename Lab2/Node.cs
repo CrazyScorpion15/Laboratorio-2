@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Lab2
 {
-    public class Node<T>
+    class Node<T>
     {
         public T value;
         public Node<T> Next;

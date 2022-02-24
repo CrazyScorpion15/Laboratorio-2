@@ -1,28 +1,37 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Lab2
 {
-    public class GenericList<T>
+    public class GenericList<T> : IEnumerable <T>
     {
         Node<T> Head;
-
-        public bool Add<List>(T Value)
+        public void Add<List>(T Value)
         {
-            Node<T> Nuevo = new Node<T>
+            Node<T> Nuevo = new Node<T>();
+            Nuevo.value = Value;
+            Nuevo.Next = Head;
+            if(Head != null)
             {
-                value = Value,
-            };
-            if (Head == null)
-            {
-                Nuevo.Previous = Head;
+                Head.Previous = Nuevo;
             }
-            else
+            Head = Nuevo;
+        }
+        
+        public IEnumerator<T> GetEnumerator()
+        {
+            Node<T> node = Head;
+            while(node != null)
             {
-                Nuevo.Next = Head;
+                yield return node.value;
+                node = node.Next;
             }
-            return true;
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
