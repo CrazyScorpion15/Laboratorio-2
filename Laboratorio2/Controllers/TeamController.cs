@@ -164,18 +164,15 @@ namespace Laboratorio2.Controllers
     }
 
     //Delegado
-
-
     delegate void MyDelegate();
-
-    MyDelegate NDele = new MyDelegate(Equipos.Busqueda);
-    //Ordenamiento 
-
+    //MyDelegate nuevodelegado = new MyDelegate(Equipos.Busqueda());
+ 
+    //Busqueda
     class Equipos
     {
         public static void Busqueda ()
         {
-            Console.WriteLine("Estos son todos los equipos que fueron ingresados en el archivo cvs");
+
         }
     }
 
