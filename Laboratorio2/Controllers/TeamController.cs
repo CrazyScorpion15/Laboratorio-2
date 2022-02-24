@@ -20,7 +20,7 @@ namespace Laboratorio2.Controllers
         // GET: TeamController
         public ActionResult Index()
         {
-            return View(Data.Instance.TeamList);
+            return View(Data.Instance.ListTeam);
         }
 
         [HttpGet]
@@ -143,7 +143,7 @@ namespace Laboratorio2.Controllers
         // GET: TeamController/Delete/5
         public ActionResult Delete(string id)
         {
-            var teams = Data.Instance.TeamList.Find(Team => Team.Name == id);
+            var teams = Data.Instance.ListTeam.Search(Team => Team.Name == id);
             return View();
         }
 
@@ -164,19 +164,10 @@ namespace Laboratorio2.Controllers
     }
 
     //Delegado
-
-
     delegate void MyDelegate();
 
-    MyDelegate NDele = new MyDelegate(Equipos.Busqueda);
-    //Ordenamiento 
+    //MyDelegate nuevodelegado = new MyDelegate();
 
-    class Equipos
-    {
-        public static void Busqueda ()
-        {
-            Console.WriteLine("Estos son todos los equipos que fueron ingresados en el archivo cvs");
-        }
-    }
+
 
 }

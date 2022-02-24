@@ -43,5 +43,6 @@ namespace Lab2
         {
             return GetEnumerator();
         }
+
     }
 }

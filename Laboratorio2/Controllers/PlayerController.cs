@@ -17,7 +17,7 @@ namespace Laboratorio2.Controllers
         // GET: PlayerController
         public ActionResult Index()
         {
-            return View(Data.Instance.PlayerList);
+            return View(Data.Instance.ListaPlayers);
         }
 
         [HttpGet]

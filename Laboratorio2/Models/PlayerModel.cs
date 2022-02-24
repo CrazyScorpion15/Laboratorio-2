@@ -24,12 +24,12 @@ namespace Laboratorio2.Models
 
         internal static bool Save(PlayerModel playerModel)
         {
-            Data.Instance.PlayerList.Add(playerModel);
+            Data.Instance.ListaPlayers.Add<PlayerModel>(playerModel);
             return true;
         }
         public static bool Edit(string id, PlayerModel model)
         {
-            var position = Data.Instance.PlayerList.FindIndex(group => group.Name == id);
+            var position = Data.Instance.ListaPlayers.Search(group => group.Name == id);
             Data.Instance.PlayerList[position] = new PlayerModel
             {
                 Team = model.Team,

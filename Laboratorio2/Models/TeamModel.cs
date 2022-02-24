@@ -20,13 +20,13 @@ namespace Laboratorio2.Models
 
         public static bool Guardar(TeamModel model)
         {
-            Data.Instance.TeamList.Add(model);
+            Data.Instance.ListTeam.Add<TeamModel>(model);
             return true;
         }
 
         public static bool Editar(string id, TeamModel model)
         {
-            var position = Data.Instance.TeamList.FindIndex(grupo => grupo.Name == id);
+            var position = Data.Instance.ListTeam.Search(grupo => grupo.Name == id);
             Data.Instance.TeamList[position] = new TeamModel
             {
                 Name = id,
