@@ -22,6 +22,7 @@ namespace Laboratorio2.Controllers
         {
             return View(Data.Instance.ListTeam);
         }
+        
 
         [HttpGet]
         public IActionResult Index(List<TeamModel> teams = null)
@@ -74,7 +75,7 @@ namespace Laboratorio2.Controllers
             #endregion
             return teams;
         }
-
+        
         // GET: TeamController/Details/5
         public ActionResult Details(string id)
         {
@@ -143,7 +144,7 @@ namespace Laboratorio2.Controllers
         // GET: TeamController/Delete/5
         public ActionResult Delete(string id)
         {
-            var teams = Data.Instance.ListTeam.Search(Team => Team.Name == id);
+            //var teams = Data.Instance.ListTeam.Search(Team => Team.Name == id);
             return View();
         }
 

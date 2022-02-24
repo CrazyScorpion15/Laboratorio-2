@@ -19,7 +19,7 @@ namespace Laboratorio2.Controllers
         {
             return View(Data.Instance.ListaPlayers);
         }
-
+        
         [HttpGet]
         public IActionResult Index(List<PlayerModel> modelo = null)
         {
@@ -72,7 +72,7 @@ namespace Laboratorio2.Controllers
 
             return modelo;
         }
-
+        
         // GET: PlayerController/Details/5
         public ActionResult Details(int id)
         {

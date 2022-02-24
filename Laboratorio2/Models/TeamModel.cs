@@ -26,6 +26,7 @@ namespace Laboratorio2.Models
 
         public static bool Editar(string id, TeamModel model)
         {
+            /*
             var position = Data.Instance.ListTeam.Search(grupo => grupo.Name == id);
             Data.Instance.TeamList[position] = new TeamModel
             {
@@ -34,6 +35,7 @@ namespace Laboratorio2.Models
                 Ligue = model.Ligue ,
                 CreationDate = model.CreationDate
             };
+            */
             return true;
         }
 

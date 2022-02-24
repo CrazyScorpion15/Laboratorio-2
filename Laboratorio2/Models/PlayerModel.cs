@@ -29,6 +29,7 @@ namespace Laboratorio2.Models
         }
         public static bool Edit(string id, PlayerModel model)
         {
+            /*
             var position = Data.Instance.ListaPlayers.Search(group => group.Name == id);
             Data.Instance.PlayerList[position] = new PlayerModel
             {
@@ -39,6 +40,7 @@ namespace Laboratorio2.Models
                 KDA = model.KDA,
                 CreepScore = model.CreepScore
             };
+            */
             return true;
         }
         public static bool Delete(string id)
