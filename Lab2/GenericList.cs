@@ -39,6 +39,12 @@ namespace Lab2
                 node = node.Next;
             }
         }
+
+        public int Search<T1>(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();

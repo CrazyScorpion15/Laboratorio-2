@@ -29,7 +29,7 @@ namespace Laboratorio2.Models
         }
         public static bool Edit(string id, PlayerModel model)
         {
-            var position = Data.Instance.ListaPlayers.Search(group => group.Name == id);
+            int position = Data.Instance.ListaPlayers.Search<TeamModel>(id);
             Data.Instance.PlayerList[position] = new PlayerModel
             {
                 Team = model.Team,
